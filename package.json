@@ -25,7 +25,7 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node --test ./test/**/*.test.ts"
   },
   "dependencies": {
     "debug": "^4.4.3",
