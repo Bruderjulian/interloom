@@ -3,7 +3,6 @@ import {
   type Logger,
   type PluginConfig,
   type PluginContext,
-  type PluginMetadata,
   type PluginSearchQuery,
 } from "./types.ts";
 import { BasePlugin } from "./BasePlugin.ts";
