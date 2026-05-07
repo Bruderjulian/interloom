@@ -1,11 +1,13 @@
 import { EventEmitter } from "eventemitter3";
 import { BasePlugin } from "./BasePlugin.js";
-import { SourceRegistry, type PluginSourceType } from "./registry.ts";
+import { SourceRegistry } from "./registry.ts";
 import type {
   FullInterloomOptions,
   InterloomOptions,
   Logger,
   PluginConfig,
+  PluginSource,
+  PluginSourceType,
 } from "./types.js";
 import {
   emptyLogger,
@@ -135,7 +137,7 @@ export class Interloom extends EventEmitter {
     return this.sourceRegistry.unregister(name);
   }
 
-  listSources(): string[] {
+  listSources(): PluginSource[] {
     return this.sourceRegistry.list();
   }
 

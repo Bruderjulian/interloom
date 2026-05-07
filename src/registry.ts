@@ -1,5 +1,5 @@
 import { createRequire } from "module";
-import type { Logger } from "./types.ts";
+import type { Logger, PluginSource, PluginSourceType } from "./types.ts";
 import type { EventEmitter } from "eventemitter3";
 import { LoadingError } from "./utils.ts";
 
@@ -35,8 +35,8 @@ export class SourceRegistry {
     return false;
   }
 
-  list(): string[] {
-    return Array.from(this.sources.keys());
+  list(): PluginSource[] {
+    return Array.from(this.sources.values());
   }
 
   resolve(name: string) {
@@ -53,13 +53,6 @@ export class SourceRegistry {
     }
   }
 }
-
-interface PluginSource {
-  name: string;
-  path: string;
-  type: PluginSourceType;
-}
-export type PluginSourceType = "module" | "file" | "url";
 
 const require = createRequire(import.meta.url);
 function loadWithRequire(path: string) {

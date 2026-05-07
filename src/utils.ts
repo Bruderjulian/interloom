@@ -1,16 +1,7 @@
 import { BaseError } from "make-error";
-import type { Logger, PluginDescriptor } from "./types.js";
+import type { Logger } from "./types.js";
 import { stat } from "fs/promises";
-import { basename, join } from "path";
-import { createRequire } from "module";
 
-export function defaults(options = {}, defaultOptions = {}) {
-  return Object.assign(
-    {},
-    structuredClone(defaultOptions),
-    structuredClone(options),
-  );
-}
 export const isArray =
   Array.isArray ||
   function (a: any): a is any[] {
@@ -102,39 +93,4 @@ export class LoadingError extends BaseError {
   constructor(message: string) {
     super(message);
   }
-}
-
-export class ParsingError extends BaseError {
-  constructor(message: string) {
-    super(message);
-  }
-}
-
-const require = createRequire(import.meta.url);
-function loadWithRequire(path: string) {
-  try {
-    const pluginCls = require(path)?.default;
-    if (!pluginCls) {
-      throw new Error(`No exported Plugin found in ${path}`);
-    }
-
-    const instance = new pluginCls();
-    if (!instance.metadata) {
-      throw new Error("Plugin missing metadata");
-    }
-    return instance;
-  } catch (error) {
-    throw new Error(`Failed to load plugin from ${path}: ${error}`);
-  }
-}
-export async function createDescriptor(
-  filePath: string,
-): Promise<PluginDescriptor> {
-  const instance = loadWithRequire(filePath);
-  return {
-    name: instance.metadata.name,
-    path: filePath,
-    metadata: instance.metadata,
-    entryPoint: basename(filePath),
-  };
 }

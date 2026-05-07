@@ -77,6 +77,13 @@ export type InterloomOptions = {
 };
 export type FullInterloomOptions = Required<InterloomOptions>;
 
+export interface PluginSource {
+  name: string;
+  path: string;
+  type: PluginSourceType;
+}
+export type PluginSourceType = "module" | "file" | "url";
+
 export interface PluginDescriptor {
   name: string;
   path: string;
