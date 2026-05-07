@@ -57,7 +57,7 @@ export class PluginManager {
   async activate(name: string | BasePlugin): Promise<void> {
     const plugin = this.#resolveName(name);
     if (!plugin.isLoaded) {
-      await this.load(plugin, plugin.context.config);
+      await this.load(plugin, {});
     }
     await this.#handleDependencies(plugin.metadata.dependencies, true, false);
     await this.#handleDependencies(
@@ -261,7 +261,7 @@ export class PluginManager {
       if (!isObject(config)) {
         throw new TypeError("Config must be an object");
       }
-      plugin.onConfigChange(Object.assign(plugin.context.config, config));
+      plugin.onConfigChange(config);
     }
     return plugin;
   }

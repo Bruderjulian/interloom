@@ -1,5 +1,5 @@
 import { BaseError } from "make-error";
-import type { Logger } from "./types.js";
+import type { Logger } from "./types.ts";
 import { stat } from "fs/promises";
 
 export const isArray =

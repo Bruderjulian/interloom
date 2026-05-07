@@ -4,17 +4,8 @@ import { Interloom, BasePlugin } from "../src/index.ts";
 
 describe("Interloom Basic Plugin Management", () => {
   class DummyPlugin extends BasePlugin {
-    loaded = false;
-    activated = false;
-    deactivated = false;
-    async onLoad() {
-      this.loaded = true;
-    }
-    async onActivate() {
-      this.activated = true;
-    }
-    async onDeactivate() {
-      this.deactivated = true;
+    constructor() {
+      super({ name: "dummy", version: "1.0.0" });
     }
   }
 
@@ -23,24 +14,24 @@ describe("Interloom Basic Plugin Management", () => {
 
   beforeEach(() => {
     interloom = new Interloom("test", {});
-    plugin = new DummyPlugin({ name: "dummy", version: "1.0.0" });
+    plugin = new DummyPlugin();
   });
 
   it("loads a plugin", async () => {
     await interloom.load(plugin);
-    strictEqual(plugin.loaded, true);
+    strictEqual(plugin.isLoaded, true);
   });
 
   it("activates a plugin", async () => {
     await interloom.load(plugin);
     await interloom.activate(plugin);
-    strictEqual(plugin.activated, true);
+    strictEqual(plugin.isActivated, true);
   });
 
   it("deactivates a plugin", async () => {
     await interloom.load(plugin);
     await interloom.activate(plugin);
     await interloom.deactivate(plugin);
-    strictEqual(plugin.deactivated, true);
+    strictEqual(plugin.isActivated, false);
   });
 });

@@ -4,14 +4,15 @@ import {
   type Plugin,
   type FullPluginMetadata,
   type PluginMetadata,
-} from "./types.js";
+} from "./types.ts";
 import {
   isObject,
   isDefined,
   isArray,
   isNumber,
   ValidationError,
-} from "./utils.js";
+  LoadingError,
+} from "./utils.ts";
 
 export abstract class BasePlugin implements Plugin {
   public context!: PluginContext;
@@ -137,6 +138,9 @@ export abstract class BasePlugin implements Plugin {
   async load(context: PluginContext): Promise<void> {
     if (this.#isLoaded) {
       return;
+    }
+    if (!isObject(context)) {
+      throw new LoadingError("Invalid Plugin Context");
     }
     this.context = context;
     try {

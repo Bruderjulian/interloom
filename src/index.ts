@@ -1,11 +1,13 @@
-import { BasePlugin } from "./BasePlugin.js";
-import { Interloom } from "./Interloom.js";
+import { BasePlugin } from "./BasePlugin.ts";
+import { Interloom } from "./Interloom.ts";
 import type {
   Plugin,
   PluginConfig,
   PluginContext,
   PluginMetadata,
   PluginSearchQuery,
+  PluginSource,
+  PluginSourceType,
 } from "./types.ts";
 export type {
   Plugin,
@@ -13,6 +15,8 @@ export type {
   PluginContext,
   PluginMetadata,
   PluginSearchQuery,
+  PluginSource,
+  PluginSourceType,
 };
 
 export { Interloom, BasePlugin };

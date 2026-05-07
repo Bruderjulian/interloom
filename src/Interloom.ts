@@ -1,5 +1,5 @@
 import { EventEmitter } from "eventemitter3";
-import { BasePlugin } from "./BasePlugin.js";
+import { BasePlugin } from "./BasePlugin.ts";
 import { SourceRegistry } from "./registry.ts";
 import type {
   FullInterloomOptions,
@@ -8,14 +8,14 @@ import type {
   PluginConfig,
   PluginSource,
   PluginSourceType,
-} from "./types.js";
+} from "./types.ts";
 import {
   emptyLogger,
   isArray,
   isDefined,
   isObject,
   ValidationError,
-} from "./utils.js";
+} from "./utils.ts";
 import { PluginManager } from "./manager.ts";
 
 const defaultOptions: FullInterloomOptions = {
@@ -62,7 +62,7 @@ export class Interloom extends EventEmitter {
   }
 
   async load(plugin: string | BasePlugin, config?: PluginConfig) {
-    this.manager.load(plugin);
+    await this.manager.load(plugin, config);
   }
 
   async loadAll(plugins?: string[] | BasePlugin[]) {

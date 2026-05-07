@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/Bruderjulian/interloom#readme",
   "type": "module",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
     "test": "node --test ./test/**/*.test.ts"
   },
