@@ -1,7 +1,10 @@
 ---
 name: Bug Report
-description: Report a reproducible bug or regression.
-labels: bug
+about: Bug Report
+title: ''
+labels: bug, enhancement
+assignees: Bruderjulian
+
 ---
 
 ## Describe the bug
