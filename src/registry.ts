@@ -35,6 +35,10 @@ export class SourceRegistry {
     return false;
   }
 
+  list(): string[] {
+    return Array.from(this.sources.keys());
+  }
+
   resolve(name: string) {
     const registration = this.sources.get(name);
     if (!registration) {
@@ -50,7 +54,6 @@ export class SourceRegistry {
   }
 }
 
-// Plugin registration information
 interface PluginSource {
   name: string;
   path: string;

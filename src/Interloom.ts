@@ -1,6 +1,6 @@
 import { EventEmitter } from "eventemitter3";
 import { BasePlugin } from "./BasePlugin.js";
-import { SourceRegistry } from "./registry.ts";
+import { SourceRegistry, type PluginSourceType } from "./registry.ts";
 import type {
   FullInterloomOptions,
   InterloomOptions,
@@ -31,6 +31,7 @@ export class Interloom extends EventEmitter {
   private namespace: string;
   private logger: Logger;
   private manager: PluginManager;
+  private sourceRegistry: SourceRegistry;
 
   constructor(namespace: InterloomOptions | string, options: InterloomOptions) {
     super();
@@ -55,6 +56,7 @@ export class Interloom extends EventEmitter {
       throw new ValidationError("Logger must be defined");
     }
     this.manager = new PluginManager(this.logger, this);
+    this.sourceRegistry = new SourceRegistry(this.logger, this);
   }
 
   async load(plugin: string | BasePlugin, config?: PluginConfig) {
@@ -123,6 +125,18 @@ export class Interloom extends EventEmitter {
     for (const plugin of plugins) {
       await this.manager.unload(plugin);
     }
+  }
+
+  registerSource(name: string, path: string, type: PluginSourceType) {
+    this.sourceRegistry.register(name, path, type);
+  }
+
+  unregisterSource(name: string): boolean {
+    return this.sourceRegistry.unregister(name);
+  }
+
+  listSources(): string[] {
+    return this.sourceRegistry.list();
   }
 
   setNamespace(name: string) {
